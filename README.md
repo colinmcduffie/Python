@@ -12,9 +12,6 @@ https://public.tableau.com/app/profile/colin.mcduffie5149/viz/WebRetailerForecas
 
 For those using your own data, please follow the schema. Feel free to replace the Google, Facebook and Direct features with your desired platform (ie Pinterest, TikTok, Organic etc). 
 
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 1096 entries, 0 to 1095
-Data columns (total 31 columns):
  #   Column                        Non-Null Count  Dtype  
 ---  ------                        --------------  -----  
  0   Date                          1096 non-null   object 
@@ -48,5 +45,4 @@ Data columns (total 31 columns):
  28  Total_Spend                   1096 non-null   float64
  29  Total_Profit                  1096 non-null   float64
  30  Total_ROAS                    1096 non-null   float64
-dtypes: float64(13), int64(17), object(1)
-memory usage: 265.6+ KB
+
