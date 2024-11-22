@@ -15,34 +15,64 @@ For those using your own data, please follow the schema. Feel free to replace th
  #   Column                        Non-Null Count  Dtype  
 ---  ------                        --------------  -----  
  0   Date                          1096 non-null   object 
- 1   Google_Desktop_Visits         1096 non-null   int64  
- 2   Google_Desktop_Conversions    1096 non-null   int64  
- 3   Google_Mobile_Visits          1096 non-null   int64  
+ 
+ 1   Google_Desktop_Visits         1096 non-null   int64 
+ 
+ 2   Google_Desktop_Conversions    1096 non-null   int64 
+ 
+ 3   Google_Mobile_Visits          1096 non-null   int64 
+ 
  4   Google_Mobile_Conversions     1096 non-null   int64  
+ 
  5   Google_Spend                  1096 non-null   float64
+ 
  6   Google_Revenue                1096 non-null   int64  
+ 
  7   Google_ROAS                   1096 non-null   float64
+ 
  8   Facebook_Desktop_Visits       1096 non-null   int64  
+ 
  9   Facebook_Desktop_Conversions  1096 non-null   int64  
- 10  Facebook_Mobile_Visits        1096 non-null   int64  
+ 
+ 10  Facebook_Mobile_Visits        1096 non-null   int64 
+ 
  11  Facebook_Mobile_Conversions   1096 non-null   int64  
+ 
  12  Facebook_Spend                1096 non-null   float64
+ 
  13  Facebook_Revenue              1096 non-null   int64  
+ 
  14  Facebook_ROAS                 1096 non-null   float64
+ 
  15  Direct_Desktop_Visits         1096 non-null   int64  
+ 
  16  Direct_Desktop_Conversions    1096 non-null   int64  
+ 
  17  Direct_Mobile_Visits          1096 non-null   int64  
- 18  Direct_Mobile_Conversions     1096 non-null   int64  
+ 
+ 18  Direct_Mobile_Conversions     1096 non-null   int64 
+ 
  19  Direct_Spend                  1096 non-null   float64
+ 
  20  Direct_Revenue                1096 non-null   int64  
+ 
  21  Direct_ROAS                   1096 non-null   float64
+ 
  22  Bounce_Rate                   1096 non-null   float64
+ 
  23  Avg_Session_Duration          1096 non-null   float64
+ 
  24  Pages_Per_Session             1096 non-null   float64
+ 
  25  Conversion_Rate               1096 non-null   float64
+ 
  26  Total_Conversions             1096 non-null   int64  
+ 
  27  Total_Revenue                 1096 non-null   int64  
+ 
  28  Total_Spend                   1096 non-null   float64
+ 
  29  Total_Profit                  1096 non-null   float64
+ 
  30  Total_ROAS                    1096 non-null   float64
 
