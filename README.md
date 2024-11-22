@@ -1,5 +1,6 @@
 # Python
-Sample Python Scripts
+**Sample Python Scripts**
+
 This is a folder with various files needed to create the data source for this work in progress Tableau Dashboard: 
 https://public.tableau.com/app/profile/colin.mcduffie5149/viz/WebRetailerForecastingModel/MainDB
 
