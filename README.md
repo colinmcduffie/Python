@@ -12,7 +12,7 @@ https://public.tableau.com/app/profile/colin.mcduffie5149/viz/WebRetailerForecas
 
 For those using your own data, please follow the schema. Feel free to replace the Google, Facebook and Direct features with your desired platform (ie Pinterest, TikTok, Organic etc). 
 
- #   Column                        Non-Null Count  Dtype  
+ #   Column                      Dtype  
 ---  ------                        --------------  -----  
  0   Date                          1096 non-null   object 
  
