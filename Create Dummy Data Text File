@@ -1,0 +1,131 @@
+#This is how I created the random dummy data. 
+
+import pandas as pd
+import numpy as np
+from datetime import datetime
+
+# Define date range y, m, d 
+start_date = datetime(2022, 1, 1)
+end_date = datetime(2024, 12, 31)
+dates = pd.date_range(start_date, end_date, freq='D')
+
+# Define possible channels and devices
+channels = ['Google', 'Facebook', 'Direct']
+devices = ['Mobile', 'Desktop']
+
+# Set how much each conversion is worth
+conversion_value = 20
+
+# Initialize an empty list
+data = []
+
+for date in dates:
+    day_data = {'Date': date}
+    
+    total_conversions = 0
+    total_revenue = 0
+    total_visits = 0
+    total_spend = 0
+    
+    for channel in channels:
+        # Set spend per visit for each channel (adjusted to be lower)
+        spend_per_visit = None
+        if channel == 'Google':
+            spend_per_visit = np.random.uniform(0.01, 0.03) * 10  # Lower the range and multiply by 10
+        elif channel == 'Facebook':
+            spend_per_visit = np.random.uniform(0.01, 0.02) * 10  # Lower the range and multiply by 10
+        else:  # Direct
+            spend_per_visit = np.random.uniform(0.01, 0.05) * 10  # Lower the range and multiply by 10
+
+        # Generate random multipliers around the desired ratios
+        visit_to_conversion_ratio = np.random.uniform(18, 22)  # Around 20x
+        mobile_to_desktop_ratio = np.random.uniform(2.5, 3.5)  # Around 3x
+
+        # Adjust mean conversions for reasonable total revenue
+        mean_conversions = 500  # Set the mean conversions
+        
+        # Calculate desktop visits and conversions
+        desktop_visits = np.random.poisson(lam=mean_conversions * visit_to_conversion_ratio)
+        desktop_conversions = np.random.poisson(lam=int(desktop_visits / visit_to_conversion_ratio))
+
+        # Calculate mobile visits based on the desktop visits and the random ratio
+        mobile_visits = np.random.poisson(lam=desktop_visits * mobile_to_desktop_ratio)
+        mobile_conversions = np.random.poisson(lam=int(mobile_visits / visit_to_conversion_ratio))
+
+        # Combine visits and conversions
+        total_channel_visits = desktop_visits + mobile_visits
+        total_channel_conversions = desktop_conversions + mobile_conversions
+        total_channel_revenue = total_channel_conversions * conversion_value  # Assuming each conversion is worth about $20
+        total_channel_spend = total_channel_visits * spend_per_visit
+
+        # Calculate ROAS for the channel
+        channel_roas = total_channel_revenue / total_channel_spend if total_channel_spend > 0 else 0
+
+        # Update aggregates
+        total_conversions += total_channel_conversions
+        total_revenue += total_channel_revenue
+        total_visits += total_channel_visits
+        total_spend += total_channel_spend
+        
+        # Store specific channel data
+        day_data[f'{channel}_Desktop_Visits'] = desktop_visits
+        day_data[f'{channel}_Desktop_Conversions'] = desktop_conversions
+        day_data[f'{channel}_Mobile_Visits'] = mobile_visits
+        day_data[f'{channel}_Mobile_Conversions'] = mobile_conversions
+        day_data[f'{channel}_Spend'] = total_channel_spend
+        day_data[f'{channel}_Revenue'] = total_channel_revenue
+        day_data[f'{channel}_ROAS'] = channel_roas
+
+    # Calculate additional metrics
+    bounce_rate = np.random.uniform(20, 70)  # Bounce rate in percentage
+    avg_session_duration = np.random.uniform(30, 600)  # Average session duration in seconds
+    pages_per_session = np.random.uniform(1, 10)  # Pages per session
+    conversion_rate = (total_conversions / total_visits) * 100 if total_visits > 0 else 0  # Conversion rate in percentage
+
+    # Calculate profit to ensure it's within the desired range (10-15% of revenue)
+    if total_spend > 0 and total_revenue > 0:
+        profit = total_revenue - total_spend
+        if profit / total_revenue < 0.10:
+            total_spend *= 0.85  # Decrease spend to increase profit margin
+        elif profit / total_revenue > 0.15:
+            total_spend *= 1.15  # Increase spend to decrease profit margin
+            
+        total_spend = min(total_spend, total_revenue * 0.9)  # Ensure profit is not over 90%
+    
+    # Re-calculate total_profit with adjusted spend
+    total_profit = total_revenue - total_spend
+
+    # Add additional metrics to day_data
+    day_data['Bounce_Rate'] = bounce_rate
+    day_data['Avg_Session_Duration'] = avg_session_duration
+    day_data['Pages_Per_Session'] = pages_per_session
+    day_data['Conversion_Rate'] = conversion_rate
+    day_data['Total_Conversions'] = total_conversions
+    day_data['Total_Revenue'] = total_revenue
+    day_data['Total_Spend'] = total_spend
+    day_data['Total_Profit'] = total_profit
+
+    # Aggregate ROAS and Profit by adding them to day_data
+    total_roas = total_revenue / total_spend if total_spend > 0 else 0
+    
+    day_data['Total_ROAS'] = total_roas
+    
+    data.append(day_data)
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+# Calculate total revenue over the period
+total_revenue_over_period = df['Total_Revenue'].sum()
+total_spend_over_period = df['Total_Spend'].sum()
+total_profit_over_period = df['Total_Profit'].sum()
+
+print(f"Total Revenue over the period: {total_revenue_over_period}")
+print(f"Total Spend over the period: {total_spend_over_period}")
+print(f"Total Profit over the period: {total_profit_over_period}")
+
+# Save to CSV
+df.to_csv('dummy_web_traffic_revenue_data.csv', index=False)
+
+print(df.head()) 
+
